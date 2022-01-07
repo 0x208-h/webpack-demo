@@ -5,3 +5,4 @@
 - css-loader 分析css文件之间的关系，将它们组合成一段CSS
 - style-loader 将css挂载到style标签上
 - sass-loader node-sass 打包sass文件
+- postcss-loader 兼容css3
