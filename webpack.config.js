@@ -6,7 +6,8 @@ const CleanWebpackPlugin = require("clean-webpack-plugin");
 module.exports = {
   mode: "development",
   entry: {
-    main: "./src/index.js",
+    main: "./src/index.js", // key为打包后的名字
+    // sub: "./src/index.js",
   },
   module: {
     rules: [
@@ -63,8 +64,9 @@ module.exports = {
     new CleanWebpackPlugin(['dist']) 
 ],
   output: {
-    // publicPath: path.join(__dirname, "./dist/"),
-    filename: "main.js",
+    // publicPath: path.join(__dirname, "./dist/"), // 提供打包后文件引用的前缀
+    // filename: "main.js",
+    filename: '[name].js', // name 表示entry中的key, 打包多个文件可用
     path: path.resolve(__dirname, "dist"),
   },
 };
