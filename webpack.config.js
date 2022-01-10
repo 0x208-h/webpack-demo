@@ -1,4 +1,6 @@
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+// plugins 可以在webpack运行在某个时刻，做一些事情。
 
 module.exports = {
   mode: "development",
@@ -51,8 +53,11 @@ module.exports = {
       }
     ],
   },
+  plugins: [new HtmlWebpackPlugin({
+    template: './public/index.html'
+  })],
   output: {
-    publicPath: path.join(__dirname, "./dist/"),
+    // publicPath: path.join(__dirname, "./dist/"),
     filename: "main.js",
     path: path.resolve(__dirname, "dist"),
   },
