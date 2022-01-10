@@ -1,8 +1,8 @@
-import Header from "./header.js";
-import avatar from "./avatar.jpg";
-import createAvatar from "./createAvatar.js";
+// import Header from "./header.js";
+// import avatar from "./avatar.jpg";
+// import createAvatar from "./createAvatar.js";
 // import styles from "./index.scss";
-import './index.scss'
+// import './index.scss'
 // import styles from "./index.module.scss"
 
 // new Header();
@@ -17,6 +17,8 @@ import './index.scss'
 // const root = document.getElementById("root");
 // root.append(img);
 
-const root  = document.getElementById("root")
+// const root  = document.getElementById("root")
 
-root.innerHTML = '<div class="iconfont icon-sousuo"></div>'
+// root.innerHTML = '<div class="iconfont icon-sousuo"></div>'
+
+consele.log('hello world')
