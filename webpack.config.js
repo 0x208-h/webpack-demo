@@ -30,18 +30,29 @@ module.exports = {
           // "css-loader", 
           {
             loader: "css-loader",
-            options: {
-              importLoaders: 2,  // 多重引用
-              modules: true, // 开启CSS modules 
-            }
+            // options: {
+              // importLoaders: 2,  // 多重引用
+              // modules: true, // 开启CSS modules 
+            // }
           },
           "sass-loader",
           "postcss-loader"
         ],
       },
+      {
+        test: /\.(eot|ttf|woff|woff2)$/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            esModule: false,
+            name: 'font/[name].[ext]'
+          }
+        },
+      }
     ],
   },
   output: {
+    publicPath: path.join(__dirname, "./dist/"),
     filename: "main.js",
     path: path.resolve(__dirname, "dist"),
   },
