@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
 // plugins 可以在webpack运行在某个时刻，做一些事情。
 
 module.exports = {
@@ -53,9 +54,14 @@ module.exports = {
       }
     ],
   },
-  plugins: [new HtmlWebpackPlugin({
+  plugins: [
+    // 打包后运行
+    new HtmlWebpackPlugin({ 
     template: './public/index.html'
-  })],
+  }),
+  // 打包前先删除对应文件夹， 打包前运行
+    new CleanWebpackPlugin(['dist']) 
+],
   output: {
     // publicPath: path.join(__dirname, "./dist/"),
     filename: "main.js",
