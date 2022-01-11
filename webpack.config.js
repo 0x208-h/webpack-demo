@@ -19,10 +19,10 @@ module.exports = {
   devServer: {
     contentBase: './dist',  // 打包后的根目录
     open: true,// 启动后是否打开浏览器
-    proxy: { // 代理
-      '/api': 'http://localhost:3000'
-    },
-    port: 3000 //端口号
+    // proxy: { // 代理
+    //   '/api': 'http://localhost:3000'
+    // },
+    // port: 3000 //端口号
   },
   module: {
     rules: [
@@ -81,6 +81,7 @@ module.exports = {
   output: {
     // publicPath: path.join(__dirname, "./dist/"), // 提供打包后文件引用的前缀
     // filename: "main.js",
+    publicPath: '/',
     filename: '[name].js', // name 表示entry中的key, 打包多个文件可用
     path: path.resolve(__dirname, "dist"),
   },
