@@ -81,7 +81,7 @@ module.exports = {
   output: {
     // publicPath: path.join(__dirname, "./dist/"), // 提供打包后文件引用的前缀
     // filename: "main.js",
-    publicPath: '/',
+    // publicPath: '/',
     filename: '[name].js', // name 表示entry中的key, 打包多个文件可用
     path: path.resolve(__dirname, "dist"),
   },
