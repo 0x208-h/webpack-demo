@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+const Webpack = require("webpack")
 // plugins 可以在webpack运行在某个时刻，做一些事情。
 
 module.exports = {
@@ -23,6 +24,8 @@ module.exports = {
     //   '/api': 'http://localhost:3000'
     // },
     // port: 3000 //端口号
+    hot: true, // 开启HMR hot module replacement
+    hotOnly: true, // 如果页面失效，不让 webpack-dev-server 重新刷新页面，让他失效
   },
   module: {
     rules: [
@@ -76,7 +79,8 @@ module.exports = {
     template: './public/index.html'
   }),
   // 打包前先删除对应文件夹， 打包前运行
-    new CleanWebpackPlugin(['dist']) 
+    new CleanWebpackPlugin(['dist']),
+    new Webpack.HotModuleReplacementPlugin()
 ],
   output: {
     // publicPath: path.join(__dirname, "./dist/"), // 提供打包后文件引用的前缀
