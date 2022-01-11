@@ -21,4 +21,4 @@
 
 // root.innerHTML = '<div class="iconfont icon-sousuo"></div>'
 
-consele.log('hello world')
+console.log('hello world')

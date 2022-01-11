@@ -16,6 +16,14 @@ module.exports = {
     main: "./src/index.js", // key为打包后的名字
     // sub: "./src/index.js",
   },
+  devServer: {
+    contentBase: './dist',  // 打包后的根目录
+    open: true,// 启动后是否打开浏览器
+    proxy: { // 代理
+      '/api': 'http://localhost:3000'
+    },
+    port: 3000 //端口号
+  },
   module: {
     rules: [
       {
