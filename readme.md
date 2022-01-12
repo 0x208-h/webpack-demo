@@ -37,3 +37,20 @@
 - html-webpack-plugin 会在打包结束后，自动生成一个html文件，并把打包生成的js自动引入到这个html文件中
 - clean-webpack-plugin 在打包前，会先检查有没有打包后的文件，有得话会将其删除掉，然后在执行打包
 - webpack-dev-server 会将打包后的文件，然后在本地启动一个服务,
+
+## 补充
+
+- Tree Shaking
+
+  - 用于描述移除 JavaScript 上下文中的未引用代码
+  - 只支持 ES Module 因为 Tree Shaking 只支持 静态引入(import底层是静态引入)， Command JS是动态引入(require引入)
+
+  - package.json 中 sideEffects 中可以是boolean值， false表示全部使用tree shaking, 也可是一个数组，里面包含的是不需要tree shaking的文件 如 ["*.css", "@babel/polly-fill"]
+  
+  - 开发环境 只会提示那个未被引用，并不会真正删除代码
+  - production tree shaking已经配好了
+
+  ``` js
+    /*! exports provided: add, minus */
+    /*! exports used: add */
+  ```

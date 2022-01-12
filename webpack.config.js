@@ -113,6 +113,10 @@ module.exports = {
     new CleanWebpackPlugin(["dist"]),
     new Webpack.HotModuleReplacementPlugin(),
   ],
+  //  production 模式下 下面代码 可删除
+  optimization: {
+    usedExports: true
+  },
   output: {
     // publicPath: path.join(__dirname, "./dist/"), // 提供打包后文件引用的前缀
     // filename: "main.js",

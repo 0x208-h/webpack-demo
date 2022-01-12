@@ -1,19 +1,4 @@
-// import '@babel/polyfill' // 兼容低版本的实现 像map方法
-// const arr = [
-//   new Promise(() => {}),
-//   new Promise(() => {})
-// ]
+// Tree Shaking 只支持 ES Module 因为 Tree Shaking 只支持 静态引入， Command JS是动态引入
+import { add } from './math'
 
-// arr.map(item => {
-//   console.log(item)
-// })
-
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './index.css'
-
-const App = () => {
-  return <div className='div'>Hello World!</div>  
-}
-
-ReactDOM.render(<App />, document.getElementById('root'))
+add(1,2)
