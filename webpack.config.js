@@ -1,7 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
-const Webpack = require("webpack")
+const Webpack = require("webpack");
 // plugins 可以在webpack运行在某个时刻，做一些事情。
 
 module.exports = {
@@ -9,7 +9,7 @@ module.exports = {
   // 构建映射关系，将源代码和打包后的代码映射起来， source-map 能够产生.map文件，能够知道源代码哪里错了
   // inline-source-map， 会将.map文件打包后放在main.js中
   // cheap-inline-source-map 只知道哪一行出错，不知道哪一列出错， 只打包业务代码
-  // eval 
+  // eval
   //development 最佳 cheap-module-eval-source-map
   // production: cheap-module-source-map
   devtool: "cheap-module-eval-source-map",
@@ -18,8 +18,8 @@ module.exports = {
     // sub: "./src/index.js",
   },
   devServer: {
-    contentBase: './dist',  // 打包后的根目录
-    open: true,// 启动后是否打开浏览器
+    contentBase: "./dist", // 打包后的根目录
+    open: true, // 启动后是否打开浏览器
     // proxy: { // 代理
     //   '/api': 'http://localhost:3000'
     // },
@@ -49,57 +49,74 @@ module.exports = {
         test: /\.scss$/,
         use: [
           "style-loader",
-          // "css-loader", 
+          // "css-loader",
           {
             loader: "css-loader",
             // options: {
-              // importLoaders: 2,  // 多重引用
-              // modules: true, // 开启CSS modules 
+            // importLoaders: 2,  // 多重引用
+            // modules: true, // 开启CSS modules
             // }
           },
           "sass-loader",
-          "postcss-loader"
+          "postcss-loader",
         ],
       },
       {
         test: /\.(eot|ttf|woff|woff2)$/,
         use: {
-          loader: 'file-loader',
+          loader: "file-loader",
           options: {
             esModule: false,
-            name: 'font/[name].[ext]'
-          }
+            name: "font/[name].[ext]",
+          },
         },
       },
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
-        options: {
-          presets: [['@babel/preset-env', {
-            targets: {   // 兼容浏览器版本, 高于版本就不转换成es5
-              chrome: '67'
-            },
-            useBuiltIns: 'usage'  // polyfill  将项目中用到的高级es6语法转换，没用到的不转换
-          }]] // 语法转换 es6 --> es5
-        }
-      }
+        loader: "babel-loader",
+        // options: {
+        //   //  业务代码可用
+        //   // polyfill 会污染全局环境
+        //   // presets: [['@babel/preset-env', {
+        //   //   targets: {   // 兼容浏览器版本, 高于版本就不转换成es5
+        //   //     chrome: '67'
+        //   //   },
+        //   //   useBuiltIns: 'usage'  // polyfill  将项目中用到的高级es6语法转换，没用到的不转换
+        //   // }]] // 语法转换 es6 --> es5
+        //   // 写组件库之内的
+        //   // 运用闭包，不会污染环境
+        //   plugins: [
+        //     [
+        //       "@babel/plugin-transform-runtime",
+        //       {
+        //         // absoluteRuntime: false,
+        //         corejs: 2,
+        //         helpers: true,
+        //         regenerator: true,
+        //         useESModule: false,
+        //         // version: "7.0.0-beta.0",
+        //       },
+        //     ],
+        //   ],
+        // },
+      },
     ],
   },
   plugins: [
     // 打包后运行
-    new HtmlWebpackPlugin({ 
-    template: './public/index.html'
-  }),
-  // 打包前先删除对应文件夹， 打包前运行
-    new CleanWebpackPlugin(['dist']),
-    new Webpack.HotModuleReplacementPlugin()
-],
+    new HtmlWebpackPlugin({
+      template: "./public/index.html",
+    }),
+    // 打包前先删除对应文件夹， 打包前运行
+    new CleanWebpackPlugin(["dist"]),
+    new Webpack.HotModuleReplacementPlugin(),
+  ],
   output: {
     // publicPath: path.join(__dirname, "./dist/"), // 提供打包后文件引用的前缀
     // filename: "main.js",
     // publicPath: '/',
-    filename: '[name].js', // name 表示entry中的key, 打包多个文件可用
+    filename: "[name].js", // name 表示entry中的key, 打包多个文件可用
     path: path.resolve(__dirname, "dist"),
   },
 };
