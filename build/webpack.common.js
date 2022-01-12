@@ -90,7 +90,9 @@ module.exports = {
       template: "./public/index.html",
     }),
     // 打包前先删除对应文件夹， 打包前运行
-    new CleanWebpackPlugin(["dist"]),
+    new CleanWebpackPlugin(["dist"], {
+      root: path.resolve(__dirname, '../')
+    }),
   ],
   output: {
     // publicPath: path.join(__dirname, "./dist/"), // 提供打包后文件引用的前缀
