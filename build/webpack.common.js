@@ -94,6 +94,11 @@ module.exports = {
       root: path.resolve(__dirname, '../')
     }),
   ],
+  optimization: {
+    splitChunks: {
+      chunks: 'all' // 代码分割
+    }
+  },
   output: {
     // publicPath: path.join(__dirname, "./dist/"), // 提供打包后文件引用的前缀
     // filename: "main.js",

@@ -61,3 +61,8 @@
   - 代码压缩
   - production多了一些配置 比如 Tree Shaking source-map不同
   - development 可以 webpack-dev-server起服务 HMR Hot Module Replacement
+
+  代码分割，和webpack无关
+  webpack方式
+  - 同步代码 只需要在webpack.common.js中做optimization的配置
+  - 异步代码(import):  无需做任何配置， 会自动进行代码分割，放置到新的文件中

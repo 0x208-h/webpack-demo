@@ -1,4 +1,14 @@
-// Tree Shaking 只支持 ES Module 因为 Tree Shaking 只支持 静态引入， Command JS是动态引入
-import { add } from './math'
+// import _ from 'lodash'
+// console.log(_.join(['a', 'b', 'c'], '**'))
 
-add(113,24)
+function getComponent() {
+  return import("lodash").then(({ default: _ }) => {
+    const element = document.createElement("div");
+    element.innerHTML = _.join(["H", "C", "H"], "-");
+    return element;
+  });
+}
+
+getComponent().then((element) => {
+  document.body.appendChild(element);
+});
