@@ -66,3 +66,69 @@
   webpack方式
   - 同步代码 只需要在webpack.common.js中做optimization的配置
   - 异步代码(import):  无需做任何配置， 会自动进行代码分割，放置到新的文件中
+
+  - SplitChunksPlugin
+
+  ```js
+  optimization: {
+    splitChunks: {
+      // chunks: 'all', // 代码分割
+      // 下面两个属性如果设置成两个false，打包后就不会出现verndors~前缀
+      // cacheGroups: {
+      //   vendors: false,
+      //   default: false
+      // },
+      chunks: "initial", // 只对异步代码有效 all同步 异步都有效 initial 同步
+      minSize: 0, // 大于minSize,才做代码分割
+      maxSize: 0, // 尝试二次拆分, 大于maxSize 1mb 
+      minChunks: 1,
+      maxAsyncRequests: 5,
+      maxInitialRequests: 3,
+      automaticNameDelimiter: "~",
+      name: true,
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10,
+          // 缓存组设置filename时，在chunks项配置为inital时才会生效，我们分割同步代码时，可以设置chunk为inital，这样就可以自定义filename了。
+          filename: 'vendors.js',
+        },
+        default: {
+          // minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true,
+          filename: 'default.js'
+        },
+      },
+    },
+  },
+  ```
+
+  过程：
+  - 首先，检查chunk属性是同步(initial)还是异步(async)，或者是(all), initial只对同步代码起效果，以此内推
+
+  - 大于minSize，才会做代码分割
+
+  - maxSize: 50000, 如果需要打包的文件大于maxSize, 则会尝试进行二次拆分，最大文件为50000b，但是一般拆分不了
+
+  - minChunks: 1, 大于等于minChunks才会进行代码分割
+
+  - maxAsyncRequests: 5 最多加载5个请求， 当打包的库文件大于5个, 前5个会生成js文件，后面的文件就不会进行代码分割
+  - maxInitialRequests : 3 首页或者入口文件进行加载时，进行代码分割，最多会分成3个文件， 超过3个，就不会进行代码分割
+  - name: true 对打包生成的文件名起作用,  如果是false, 打包后的名字是 0.js, 如果是true, 打包后的文件名是 (vendors| default) ~ main.入口文件名字.js （如果是入口文件的名字是main的话，(vendors| default) ~ main.js）
+
+  ```js
+  entry: {
+    main: "./src/index.js", // key为打包后的名字
+  },
+  ```
+
+  - automaticNameDelimiter：打包生成的文件名字的连字符
+  - 进入cacheGroups，进入vendors组里面， 判断是不是node_modules目录里面的，如果是，则将代码分割到vendors组里面，否则，进入default组里面
+
+  - priority 优先级 如果需要打包的文件符合cacheGroups里面的两个组(vendors和default)(default里面没有test属性)里，优先级越高，就放在哪个组里。
+
+  - reuseExistingChunk 如果某个模块(比如B)被打包之后，后面还有其他地方这个模块后，后面这个模块就不会被打包， 直接复用之前已经打包好的那个模块
+  - cacheGroups 会等需要打包的文件全部进入缓存组里面，最后一起打包。
+  注意：
+  缓存组设置filename时，在chunks项配置为inital时才会生效，我们分割同步代码时，可以设置chunk为inital，这样就可以自定义filename了。
