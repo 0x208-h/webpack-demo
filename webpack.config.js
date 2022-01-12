@@ -37,6 +37,7 @@ module.exports = {
             // placeholder 占位符
             name: "[name].[ext]",
             outputPath: "images/",
+            esModule: false, // file-loader 在5.0.0版本中默认开启esModule
             limit: 2048,
           },
         },
