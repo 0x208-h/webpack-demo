@@ -9,6 +9,16 @@
 - style-loader 将css挂载到style标签上
 - sass-loader node-sass 打包sass文件
 - postcss-loader 兼容css3
+- babel-loader es6 --> es5
+  - 其他依赖
+  - @babel/core
+  - ---------------- 这种打包回污染全局环境
+  - @babel/polyfill  
+  - @babel/preset-env
+  - ----------------
+  - @babel/plugin-transform-runtime
+  - @babel/runtime
+  - @babel/runtime-corejs2
 
 打包字体出错的原因是路径问题，因为index.html 是放在public目录下，而视频里面是放在打包后dist目录下，所以路径出错，解决问题的方案
 
