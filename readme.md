@@ -54,3 +54,10 @@
     /*! exports provided: add, minus */
     /*! exports used: add */
   ```
+
+  webpack-merge 合并 webpack配置
+  development 与 production
+
+  - 代码压缩
+  - production多了一些配置 比如 Tree Shaking source-map不同
+  - development 可以 webpack-dev-server起服务 HMR Hot Module Replacement
