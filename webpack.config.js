@@ -70,6 +70,19 @@ module.exports = {
             name: 'font/[name].[ext]'
           }
         },
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        options: {
+          presets: [['@babel/preset-env', {
+            targets: {   // 兼容浏览器版本, 高于版本就不转换成es5
+              chrome: '67'
+            },
+            useBuiltIns: 'usage'  // polyfill  将项目中用到的高级es6语法转换，没用到的不转换
+          }]] // 语法转换 es6 --> es5
+        }
       }
     ],
   },
