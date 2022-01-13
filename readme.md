@@ -152,3 +152,24 @@
   ```
 
   [打包分析](https://github.com/webpack/analyse)
+
+  F12 打开控制台 shift + command + p 搜索 coverage 点击白点，然后可以看见代码覆盖率
+
+  prefetch/preload
+
+  ```js
+  /* webpackPrefetch: true */
+  /* webpackPreload: true */
+  import(/* webpackPrefetch: true */ "./path/to/LoginModal.js");
+  ```
+
+  [详见](https://webpack.docschina.org/guides/code-splitting/#prefetchingpreloading-modules)
+
+  区别：
+
+  - preload chunk 会在父 chunk 加载时，以并行方式开始加载。prefetch chunk 会在父 chunk 加载结束后开始加载。
+  - preload chunk 具有中等优先级，并立即下载。prefetch chunk 在浏览器闲置时下载。
+  - preload chunk 会在父 chunk 中立即请求，用于当下时刻。prefetch chunk 会用于未来的某个时刻。
+  - 浏览器支持程度不同。
+
+  注意：提升前端代码性能的方面，通过懒加载影响用户体验，并不是利用缓存更好，而是代码覆盖率 code coverage
