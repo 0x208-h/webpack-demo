@@ -112,7 +112,7 @@
 
   - maxSize: 50000, 如果需要打包的文件大于 maxSize, 则会尝试进行二次拆分，最大文件为 50000b，但是一般拆分不了
 
-  - minChunks: 1, 大于等于 minChunks 才会进行代码分割, 比如lodash.js 被打包后的文件(打包后的每一个文件都是一个chunk)引用minChunks次,lodash.js 会就行代码分割
+  - minChunks: 1, 大于等于 minChunks 才会进行代码分割, 比如 lodash.js 被打包后的文件(打包后的每一个文件都是一个 chunk)引用 minChunks 次,lodash.js 会就行代码分割
 
   - maxAsyncRequests: 5 最多加载 5 个请求， 当打包的库文件大于 5 个, 前 5 个会生成 js 文件，后面的文件就不会进行代码分割
   - maxInitialRequests : 3 首页或者入口文件进行加载时，进行代码分割，最多会分成 3 个文件， 超过 3 个，就不会进行代码分割
@@ -133,7 +133,7 @@
   - cacheGroups 会等需要打包的文件全部进入缓存组里面，最后一起打包。
     注意：
     缓存组设置 filename 时，在 chunks 项配置为 inital 时才会生效，我们分割同步代码时，可以设置 chunk 为 inital，这样就可以自定义 filename 了。
-    加载异步代码时，缓存组不应该设置 filename, 如果想改变打包后的名字，可以将 cacheGroups 中的两个组都配置为 false, 在异步加载代码是设置 webpackChunkName来改变打包后的名字。
+    加载异步代码时，缓存组不应该设置 filename, 如果想改变打包后的名字，可以将 cacheGroups 中的两个组都配置为 false, 在异步加载代码是设置 webpackChunkName 来改变打包后的名字。
 
   ```js
   function getComponent() {
@@ -150,3 +150,5 @@
     document.body.appendChild(element);
   });
   ```
+
+  [打包分析](https://github.com/webpack/analyse)
