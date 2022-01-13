@@ -1,6 +1,7 @@
 const merge = require('webpack-merge');
 const CommonConfig  = require('./webpack.common')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
 // plugins 可以在webpack运行在某个时刻，做一些事情。
 
  const ProdConfig = {
@@ -46,7 +47,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
       filename: '[name].css', // 直接被页面引入
       chunkFilename: '[name].chunk.css'
     })
-  ]
+  ],
+  optimization: {
+    minimizer: [new OptimizeCssAssetsWebpackPlugin({})]
+  }
 };
 
 module.exports = merge(CommonConfig, ProdConfig)
