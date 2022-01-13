@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+const webpack = require("webpack");
 
 module.exports = {
   entry: {
@@ -73,6 +74,12 @@ module.exports = {
     new CleanWebpackPlugin(["dist"], {
       root: path.resolve(__dirname, "../"),
     }),
+    // 配置 $ 为 jquery 完成 import $ from "jquery"
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      _: 'lodash',
+      _join: ['lodash', 'join']
+    })
   ],
   optimization: {
     // 兼容老版本, 如果代码没有变化,而两次打包后的文件hash值变了，则需要添加下面代码 
