@@ -131,6 +131,7 @@ module.exports = {
     // filename: "main.js",
     // publicPath: '/',
     filename: "[name].js", // name 表示entry中的key, 打包多个文件可用
+    chunkFilename: '[name].chunk.js', // 不是入口文件，生成的文件会走这个配置
     path: path.resolve(__dirname, "../dist"),
   },
 };
