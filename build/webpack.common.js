@@ -96,34 +96,34 @@ module.exports = {
   ],
   optimization: {
     splitChunks: {
-      // chunks: 'all', // 代码分割
+      chunks: 'all', // 代码分割
       // 下面两个属性如果设置成两个false，打包后就不会出现verndors~前缀
       // cacheGroups: {
       //   vendors: false,
       //   default: false
       // },
-      chunks: "all", // 只对异步代码有效 all同步 异步都有效 initial 同步
-      minSize: 30000, // 大于minSize,才做代码分割
-      maxSize: 0,
-      minChunks: 1,
-      maxAsyncRequests: 5,
-      maxInitialRequests: 3,
-      automaticNameDelimiter: "~",
-      name: true,
-      cacheGroups: {
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          priority: -10,
-          // 缓存组设置filename时，在chunks项配置为inital时才会生效，我们分割同步代码时，可以设置chunk为inital，这样就可以自定义filename了。
-          // filename: 'vendors.js',
-        },
-        default: {
-          // minChunks: 2,
-          priority: -20,
-          reuseExistingChunk: true,
-          // filename: 'default.js'
-        },
-      },
+      // chunks: "all", // 只对异步代码有效 all同步 异步都有效 initial 同步
+      // minSize: 30000, // 大于minSize,才做代码分割
+      // maxSize: 0,
+      // minChunks: 1,
+      // maxAsyncRequests: 5,
+      // maxInitialRequests: 3,
+      // automaticNameDelimiter: "~",
+      // name: true,
+      // cacheGroups: {
+      //   vendors: {
+      //     test: /[\\/]node_modules[\\/]/,
+      //     priority: -10,
+      //     // 缓存组设置filename时，在chunks项配置为inital时才会生效，我们分割同步代码时，可以设置chunk为inital，这样就可以自定义filename了。
+      //     // filename: 'vendors.js',
+      //   },
+      //   default: {
+      //     // minChunks: 2,
+      //     priority: -20,
+      //     reuseExistingChunk: true,
+      //     filename: 'default.js'
+      //   },
+      // },
     },
   },
   output: {

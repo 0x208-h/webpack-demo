@@ -112,7 +112,7 @@
 
   - maxSize: 50000, 如果需要打包的文件大于 maxSize, 则会尝试进行二次拆分，最大文件为 50000b，但是一般拆分不了
 
-  - minChunks: 1, 大于等于 minChunks 才会进行代码分割
+  - minChunks: 1, 大于等于 minChunks 才会进行代码分割, 比如lodash.js 被打包后的文件(打包后的每一个文件都是一个chunk)引用minChunks次,lodash.js 会就行代码分割
 
   - maxAsyncRequests: 5 最多加载 5 个请求， 当打包的库文件大于 5 个, 前 5 个会生成 js 文件，后面的文件就不会进行代码分割
   - maxInitialRequests : 3 首页或者入口文件进行加载时，进行代码分割，最多会分成 3 个文件， 超过 3 个，就不会进行代码分割

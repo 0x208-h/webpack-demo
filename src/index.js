@@ -1,20 +1,30 @@
-import _ from 'lodash'
-import $ from 'jquery'
-console.log(_.join(['a', 'b', 'c'], '**'))
+// import _ from 'lodash'
+// import $ from 'jquery'
+// console.log(_.join(['a', 'b', 'c'], '**'))
 
-console.log($)
-
-// import { name } from "./test";
-// console.log(name);
+// console.log($)
 
 // function getComponent() {
-//   return import(/* webpackChunkName: "lodash" */"lodash").then(({ default: _ }) => {
-//     const element = document.createElement("div");
-//     element.innerHTML = _.join(["H", "C", "H"], "-");
-//     return element;
-//   });
+//   return import(/* webpackChunkName: "lodash" */ "lodash").then(
+//     ({ default: _ }) => {
+//       const element = document.createElement("div");
+//       element.innerHTML = _.join(["H", "C", "H"], "-");
+//       return element;
+//     }
+//   );
 // }
 
-// getComponent().then((element) => {
-//   document.body.appendChild(element);
-// });
+async function getComponent() {
+  const { default: _ } = await import(
+    /* webpackChunkName: "lodash" */ "lodash"
+  );
+  const element = document.createElement("div");
+  element.innerHTML = _.join(["H", "C", "H"], "-");
+  return element;
+}
+
+document.addEventListener("click", () => {
+  getComponent().then((element) => {
+    document.body.appendChild(element);
+  });
+});
