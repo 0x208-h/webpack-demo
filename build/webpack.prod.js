@@ -12,7 +12,7 @@ const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plug
   // eval
   //development 最佳 cheap-module-eval-source-map
   // production: cheap-module-source-map
-  devtool: "cheap-module-source-map",
+  // devtool: "cheap-module-source-map",
   module: {
     rules: [
       {
@@ -50,6 +50,12 @@ const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plug
   ],
   optimization: {
     minimizer: [new OptimizeCssAssetsWebpackPlugin({})]
+  },
+  output: {
+    // contenthash: 由content产生的一个hash字符串, content不变，hash值不变，
+    // 能够使用缓存, hash值没有变, 就能够使用缓存, 不需要重新请求服务
+    filename: "[name].[contenthash].js", // name 表示entry中的key, 打包多个文件可用
+    chunkFilename: '[name].[contenthash].chunk.js',
   }
 };
 

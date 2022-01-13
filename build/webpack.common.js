@@ -75,9 +75,24 @@ module.exports = {
     }),
   ],
   optimization: {
+    // 兼容老版本, 如果代码没有变化,而两次打包后的文件hash值变了，则需要添加下面代码 
+    // manifest 因为main.js 和 vendors.js两个文件之间会有关联，所有导致两次打包的文件hash值不同
+    // 添加以下代码可以将main.js 和 vendors.js 有关联的代码抽离出来, 然后放在runtime.js 文件中
+    runtimeChunk: {
+      name: 'runtime'
+    },
+
     usedExports: true,
     splitChunks: {
       chunks: 'all', // 代码分割
+      cacheGroups: {
+      	vendors: {
+      		test: /[\\/]node_modules[\\/]/,
+      		priority: -10,
+      		// filename: 'vendors.js',
+          name: 'vendors' // 打包后的文件名是[name].chunk.js
+      	}
+      },
       // 下面两个属性如果设置成两个false，打包后就不会出现verndors~前缀
       // cacheGroups: {
       //   vendors: false,
@@ -96,8 +111,8 @@ module.exports = {
       //     test: /[\\/]node_modules[\\/]/,
       //     priority: -10,
       //     // 缓存组设置filename时，在chunks项配置为inital时才会生效，我们分割同步代码时，可以设置chunk为inital，这样就可以自定义filename了。
-      //     // filename: 'vendors.js',
-      //   },
+          // filename: 'vendors.js',
+        // },
       //   default: {
       //     // minChunks: 2,
       //     priority: -20,
@@ -107,6 +122,7 @@ module.exports = {
       // },
     },
   },
+  performance: false, // 不让提示性能上的问题
   output: {
     // publicPath: path.join(__dirname, "./dist/"), // 提供打包后文件引用的前缀
     // filename: "main.js",

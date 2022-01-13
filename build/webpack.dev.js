@@ -53,6 +53,10 @@ const DevConfig = {
   // optimization: {
   //   usedExports: true,
   // },
+  output: {
+    filename: "[name].js", // name 表示entry中的key, 打包多个文件可用
+    chunkFilename: '[name].chunk.js',
+  }
 };
 
 module.exports = merge(CommonConfig, DevConfig)
