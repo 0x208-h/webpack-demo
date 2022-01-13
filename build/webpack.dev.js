@@ -22,13 +22,37 @@ const DevConfig = {
     hot: true, // 开启HMR hot module replacement
     // hotOnly: true, // 如果页面失效，不让 webpack-dev-server 重新刷新页面，让他失效
   },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          "style-loader",
+          // "css-loader",
+          {
+            loader: "css-loader",
+            // options: {
+            // importLoaders: 2,  // 多重引用
+            // modules: true, // 开启CSS modules
+            // }
+          },
+          "sass-loader",
+          "postcss-loader",
+        ],
+      },
+    ]
+  },
   plugins: [
     new Webpack.HotModuleReplacementPlugin(),
   ],
   //  production 模式下 下面代码 可删除
-  optimization: {
-    usedExports: true
-  },
+  // optimization: {
+  //   usedExports: true,
+  // },
 };
 
 module.exports = merge(CommonConfig, DevConfig)

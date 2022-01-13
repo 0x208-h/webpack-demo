@@ -35,7 +35,8 @@
 
 - html-webpack-plugin 会在打包结束后，自动生成一个 html 文件，并把打包生成的 js 自动引入到这个 html 文件中
 - clean-webpack-plugin 在打包前，会先检查有没有打包后的文件，有得话会将其删除掉，然后在执行打包
-- webpack-dev-server 会将打包后的文件，然后在本地启动一个服务,
+- webpack-dev-server 会将打包后的文件，然后在本地启动一个服务
+- MiniCssExtractPlugin 不好之处 支持HMR， 开发环境不合适安装, CSS 代码分割
 
 ## 补充
 

@@ -1,5 +1,6 @@
 const merge = require('webpack-merge');
 const CommonConfig  = require('./webpack.common')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // plugins 可以在webpack运行在某个时刻，做一些事情。
 
  const ProdConfig = {
@@ -11,6 +12,41 @@ const CommonConfig  = require('./webpack.common')
   //development 最佳 cheap-module-eval-source-map
   // production: cheap-module-source-map
   devtool: "cheap-module-source-map",
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          // "style-loader", 
+          MiniCssExtractPlugin.loader,
+          "css-loader"
+        ],
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          // "style-loader",
+          MiniCssExtractPlugin.loader,
+          // "css-loader",
+          {
+            loader: "css-loader",
+            // options: {
+            // importLoaders: 2,  // 多重引用
+            // modules: true, // 开启CSS modules
+            // }
+          },
+          "sass-loader",
+          "postcss-loader",
+        ],
+      },
+    ]
+  },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: '[name].css', // 直接被页面引入
+      chunkFilename: '[name].chunk.css'
+    })
+  ]
 };
 
 module.exports = merge(CommonConfig, ProdConfig)

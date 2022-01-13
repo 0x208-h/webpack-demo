@@ -23,26 +23,6 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"],
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          "style-loader",
-          // "css-loader",
-          {
-            loader: "css-loader",
-            // options: {
-            // importLoaders: 2,  // 多重引用
-            // modules: true, // 开启CSS modules
-            // }
-          },
-          "sass-loader",
-          "postcss-loader",
-        ],
-      },
-      {
         test: /\.(eot|ttf|woff|woff2)$/,
         use: {
           loader: "file-loader",
@@ -95,6 +75,7 @@ module.exports = {
     }),
   ],
   optimization: {
+    usedExports: true,
     splitChunks: {
       chunks: 'all', // 代码分割
       // 下面两个属性如果设置成两个false，打包后就不会出现verndors~前缀
