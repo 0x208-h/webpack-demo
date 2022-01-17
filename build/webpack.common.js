@@ -1,7 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
-const webpack = require("webpack");
+// const webpack = require("webpack");
 const merge = require("webpack-merge")
 const DevConfig = require("./webpack.dev")
 const ProdConfig = require("./webpack.prod")
@@ -39,8 +39,8 @@ const CommonConfig = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        // loader: "babel-loader",
-        use: ["babel-loader", "imports-loader?this=>window"],
+        loader: "babel-loader",
+        // use: ["babel-loader", "imports-loader?this=>window"],
         // options: {
         //   //  业务代码可用
         //   // polyfill 会污染全局环境
@@ -79,11 +79,11 @@ const CommonConfig = {
       root: path.resolve(__dirname, "../"),
     }),
     // 配置 $ 为 jquery 完成 import $ from "jquery"
-    new webpack.ProvidePlugin({
-      $: "jquery",
-      _: "lodash",
-      _join: ["lodash", "join"],
-    }),
+    // new webpack.ProvidePlugin({
+    //   $: "jquery",
+    //   _: "lodash",
+    //   _join: ["lodash", "join"],
+    // }),
   ],
   optimization: {
     // 兼容老版本, 如果代码没有变化,而两次打包后的文件hash值变了，则需要添加下面代码

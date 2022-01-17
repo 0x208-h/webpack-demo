@@ -52,6 +52,7 @@
 - webpack-dev-server 会将打包后的文件，然后在本地启动一个服务
 - MiniCssExtractPlugin 不好之处 支持 HMR， 开发环境不合适安装, CSS 代码分割
 - optimize-css-assets-webpack-plugin CSS 代码合并
+- workbox-webpack-plugin 使用 serviceWorker 做缓存，页面服务挂了，当前页面没影响
 
 ## 补充
 
@@ -209,8 +210,10 @@
   // externals: 'lodash', // 忽略库文件
   externals: {
     lodash: {
-      commonjs: 'lodash' // 表示commonjs下 引入lodash库名字必须为lodash 
+      commonjs: 'lodash' // 表示commonjs下 引入lodash库名字必须为lodash
       // const lodash = require('lodash')
     }
   },
   ```
+
+  http-server 本地起一个服务

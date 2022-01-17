@@ -2,6 +2,7 @@
 // const CommonConfig  = require('./webpack.common')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
+const WorkBoxWebpackPlugin = require('workbox-webpack-plugin')
 // plugins 可以在webpack运行在某个时刻，做一些事情。
 
  const ProdConfig = {
@@ -46,6 +47,10 @@ const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plug
     new MiniCssExtractPlugin({
       filename: '[name].css', // 直接被页面引入
       chunkFilename: '[name].chunk.css'
+    }),
+    new WorkBoxWebpackPlugin.GenerateSW({
+      clientsClaim: true, // 强制等待中的 Service Worker 被激活
+      skipWaiting: true // Service Worker 被激活后使其立即获得页面控制权
     })
   ],
   optimization: {
