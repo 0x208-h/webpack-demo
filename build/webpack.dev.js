@@ -1,7 +1,7 @@
 
 const Webpack = require("webpack");
-const merge = require("webpack-merge");
-const CommonConfig = require("./webpack.common")
+// const merge = require("webpack-merge");
+// const CommonConfig = require("./webpack.common")
 // plugins 可以在webpack运行在某个时刻，做一些事情。
 const DevConfig = {
   mode: "development",
@@ -59,4 +59,4 @@ const DevConfig = {
   }
 };
 
-module.exports = merge(CommonConfig, DevConfig)
+module.exports =  DevConfig

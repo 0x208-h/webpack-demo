@@ -1,5 +1,5 @@
-const merge = require('webpack-merge');
-const CommonConfig  = require('./webpack.common')
+// const merge = require('webpack-merge');
+// const CommonConfig  = require('./webpack.common')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
 // plugins 可以在webpack运行在某个时刻，做一些事情。
@@ -12,7 +12,7 @@ const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plug
   // eval
   //development 最佳 cheap-module-eval-source-map
   // production: cheap-module-source-map
-  // devtool: "cheap-module-source-map",
+  devtool: "cheap-module-source-map",
   module: {
     rules: [
       {
@@ -59,4 +59,4 @@ const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plug
   }
 };
 
-module.exports = merge(CommonConfig, ProdConfig)
+module.exports = ProdConfig

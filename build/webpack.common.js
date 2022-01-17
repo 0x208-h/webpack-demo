@@ -2,8 +2,11 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const webpack = require("webpack");
+const merge = require("webpack-merge")
+const DevConfig = require("./webpack.dev")
+const ProdConfig = require("./webpack.prod")
 
-module.exports = {
+const CommonConfig = {
   entry: {
     main: "./src/index.js", // key为打包后的名字
     // sub: "./src/index.js",
@@ -140,3 +143,11 @@ module.exports = {
     path: path.resolve(__dirname, "../dist"),
   },
 };
+
+module.exports = (env) => {
+  if(env && env.production) {
+    return merge(CommonConfig, ProdConfig)
+  } else {
+    return merge(CommonConfig, DevConfig)
+  }
+}
