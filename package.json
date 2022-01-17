@@ -7,6 +7,7 @@
   "description": "",
   "private": true,
   "scripts": {
+    "bundle": "webpack",
     "start": "http-server dist",
     "dev": "webpack-dev-server --config ./build/webpack.common.js",
     "build": "webpack --env.production --config ./build/webpack.common.js"

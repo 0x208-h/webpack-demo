@@ -23,6 +23,7 @@
   - @babel/runtime-corejs2
 
 - imports-loader 更改 this 指向
+- ts-loader 打包 TS, 根目录需要 tsconfig.json
 
 ```js
  {
@@ -53,6 +54,21 @@
 - MiniCssExtractPlugin 不好之处 支持 HMR， 开发环境不合适安装, CSS 代码分割
 - optimize-css-assets-webpack-plugin CSS 代码合并
 - workbox-webpack-plugin 使用 serviceWorker 做缓存，页面服务挂了，当前页面没影响
+
+```js
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/service-worker.js")
+      .then((registration) => {
+        console.log("registed", registration);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  });
+}
+```
 
 ## 补充
 
