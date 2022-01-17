@@ -189,3 +189,28 @@
   - 浏览器支持程度不同。
 
   注意：提升前端代码性能的方面，通过懒加载影响用户体验，并不是利用缓存更好，而是代码覆盖率 code coverage
+
+  output 属性
+
+  ```js
+   output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'library.js',
+    // 打包库文件
+    library: 'library', // 能使用script引入
+    libraryTarget: 'umd' // umd 不管是commonJS AMD CMD
+  }
+  ```
+
+  webpack.config.js
+
+  ```js
+  externals: ['lodash'] //打包的时候忽略lodash库文件
+  // externals: 'lodash', // 忽略库文件
+  externals: {
+    lodash: {
+      commonjs: 'lodash' // 表示commonjs下 引入lodash库名字必须为lodash 
+      // const lodash = require('lodash')
+    }
+  },
+  ```
