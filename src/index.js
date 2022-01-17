@@ -1,27 +1,15 @@
-console.log("hello");
+import React, { useEffect } from "react";
+import ReactDom from "react-dom";
+import axios from "axios";
 
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("/service-worker.js")
-      .then((registration) => {
-        console.log("registed", registration);
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
-  });
+const App = () => {
+  // axios.defaults.baseURL = "http://www.dell-lee.com"
+
+  useEffect(() => {
+    axios.get('/react/api/header.json').then(res => console.log(res.data.data))
+  }, [])
+
+  return (<div>Hello, world!</div>)
 }
 
-// if ("serviceWorker" in navigator) {
-//   window.addEventListener("load", () => {
-//     navigator.serviceWorker
-//       .register("/service-worker.js") //调用打包生成的 sw.js
-//       .then((registration) => {
-//         console.log("service-worker registed", registration);
-//       })
-//       .catch((error) => {
-//         console.log("service-worker register error", error);
-//       });
-//   });
-// }
+ReactDom.render(<App />, document.getElementById('root'))
