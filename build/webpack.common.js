@@ -36,7 +36,8 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "babel-loader",
+        // loader: "babel-loader",
+        use: ["babel-loader", "imports-loader?this=>window"],
         // options: {
         //   //  业务代码可用
         //   // polyfill 会污染全局环境
@@ -76,29 +77,29 @@ module.exports = {
     }),
     // 配置 $ 为 jquery 完成 import $ from "jquery"
     new webpack.ProvidePlugin({
-      $: 'jquery',
-      _: 'lodash',
-      _join: ['lodash', 'join']
-    })
+      $: "jquery",
+      _: "lodash",
+      _join: ["lodash", "join"],
+    }),
   ],
   optimization: {
-    // 兼容老版本, 如果代码没有变化,而两次打包后的文件hash值变了，则需要添加下面代码 
+    // 兼容老版本, 如果代码没有变化,而两次打包后的文件hash值变了，则需要添加下面代码
     // manifest 因为main.js 和 vendors.js两个文件之间会有关联，所有导致两次打包的文件hash值不同
     // 添加以下代码可以将main.js 和 vendors.js 有关联的代码抽离出来, 然后放在runtime.js 文件中
     runtimeChunk: {
-      name: 'runtime'
+      name: "runtime",
     },
 
     usedExports: true,
     splitChunks: {
-      chunks: 'all', // 代码分割
+      chunks: "all", // 代码分割
       cacheGroups: {
-      	vendors: {
-      		test: /[\\/]node_modules[\\/]/,
-      		priority: -10,
-      		// filename: 'vendors.js',
-          name: 'vendors' // 打包后的文件名是[name].chunk.js
-      	}
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10,
+          // filename: 'vendors.js',
+          name: "vendors", // 打包后的文件名是[name].chunk.js
+        },
       },
       // 下面两个属性如果设置成两个false，打包后就不会出现verndors~前缀
       // cacheGroups: {
@@ -118,8 +119,8 @@ module.exports = {
       //     test: /[\\/]node_modules[\\/]/,
       //     priority: -10,
       //     // 缓存组设置filename时，在chunks项配置为inital时才会生效，我们分割同步代码时，可以设置chunk为inital，这样就可以自定义filename了。
-          // filename: 'vendors.js',
-        // },
+      // filename: 'vendors.js',
+      // },
       //   default: {
       //     // minChunks: 2,
       //     priority: -20,
@@ -135,7 +136,7 @@ module.exports = {
     // filename: "main.js",
     // publicPath: '/',
     filename: "[name].js", // name 表示entry中的key, 打包多个文件可用
-    chunkFilename: '[name].chunk.js', // 不是入口文件，生成的文件会走这个配置
+    chunkFilename: "[name].chunk.js", // 不是入口文件，生成的文件会走这个配置
     path: path.resolve(__dirname, "../dist"),
   },
 };

@@ -9,15 +9,29 @@
 - sass-loader node-sass 打包 sass 文件
 - postcss-loader 兼容 css3
 - babel-loader es6 --> es5
+
   - 其他依赖
   - @babel/core
   - ---------------- 这种打包回污染全局环境
   - @babel/polyfill
   - @babel/preset-env
+
   ***
+
   - @babel/plugin-transform-runtime
   - @babel/runtime
   - @babel/runtime-corejs2
+
+- imports-loader 更改 this 指向
+
+```js
+ {
+    test: /\.js$/,
+    exclude: /node_modules/,
+    // loader: "babel-loader",
+    use: ["babel-loader", "imports-loader?this=>window"],
+  },
+```
 
 打包字体出错的原因是路径问题，因为 index.html 是放在 public 目录下，而视频里面是放在打包后 dist 目录下，所以路径出错，解决问题的方案
 
@@ -36,8 +50,8 @@
 - html-webpack-plugin 会在打包结束后，自动生成一个 html 文件，并把打包生成的 js 自动引入到这个 html 文件中
 - clean-webpack-plugin 在打包前，会先检查有没有打包后的文件，有得话会将其删除掉，然后在执行打包
 - webpack-dev-server 会将打包后的文件，然后在本地启动一个服务
-- MiniCssExtractPlugin 不好之处 支持HMR， 开发环境不合适安装, CSS 代码分割
-- optimize-css-assets-webpack-plugin CSS代码合并
+- MiniCssExtractPlugin 不好之处 支持 HMR， 开发环境不合适安装, CSS 代码分割
+- optimize-css-assets-webpack-plugin CSS 代码合并
 
 ## 补充
 
