@@ -11,6 +11,13 @@ const CommonConfig = {
     main: "./src/index.js", // key为打包后的名字
     // sub: "./src/index.js",
   },
+  resolve: {
+    extensions: ['.js', '.jsx', '.tsx', '.ts'], // 后缀
+    mainFiles: ['index'], // 默认名字
+    alias: {
+      "@": path.resolve(__dirname, '../src') // 别名
+    }
+  },
   module: {
     rules: [
       {
@@ -37,8 +44,9 @@ const CommonConfig = {
         },
       },
       {
-        test: /\.js$/,
+        test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
+        include: path.resolve(__dirname, "../src"),
         // use: ['babel-loader', 'eslint-loader'],
         use: ['babel-loader', {
           loader: 'eslint-loader',

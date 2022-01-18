@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import ReactDom from "react-dom";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import axios from "axios";
-import List from "./list";
-import Home from "./home";
+import List from "@/components/list";
+import Home from "./components/home";
 
 function App() {
   // axios.defaults.baseURL = "http://www.dell-lee.com"

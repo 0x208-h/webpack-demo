@@ -246,6 +246,10 @@ if ("serviceWorker" in navigator) {
   http-server 本地起一个服务
 
   webpack提高打包速度
+  - 跟上技术的迭代 node npm yarn
+  - 在尽可能少的模块上应用loader, 减少使用loader
+  - plugin 尽可能精简并确保可靠 官方推荐的
+  - resolve 参数合理配置
   - thread-loader, parallel-webpack, happypack 多进程打包
   - 合理使用sourceMap
   - stats分析打包结果
