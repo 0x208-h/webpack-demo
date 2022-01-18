@@ -1,4 +1,5 @@
 const path = require("path");
+const fs = require("fs");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const AddAssetHtmlWebpackPlugin = require("add-asset-html-webpack-plugin");
@@ -8,9 +9,30 @@ const merge = require("webpack-merge");
 const DevConfig = require("./webpack.dev");
 const ProdConfig = require("./webpack.prod");
 
-// const plugins = [
+const plugins = [
+  // 打包后运行
+  new HtmlWebpackPlugin({
+    template: "./public/index.html",
+  }),
+  // 打包前先删除对应文件夹， 打包前运行
+  new CleanWebpackPlugin(["dist"], {
+    root: path.resolve(__dirname, "../"),
+  }),
+];
 
-// ]
+const files = fs.readdirSync(path.resolve(__dirname, "../test"));
+files.forEach((file) => {
+  if (/.*\.test.js$/.test(file)) {
+    plugins.push(new AddAssetHtmlWebpackPlugin({
+      filepath: path.resolve(__dirname, "../test", file),
+    }));
+  }
+  if (/.*\.test.json$/.test(file)) {
+    plugins.push(new webpack.DllReferencePlugin({
+      manifest: path.resolve(__dirname, "../test", file),
+    }));
+  }
+});
 
 const CommonConfig = {
   entry: {
@@ -91,34 +113,35 @@ const CommonConfig = {
       },
     ],
   },
-  plugins: [
-    // 打包后运行
-    new HtmlWebpackPlugin({
-      template: "./public/index.html",
-    }),
-    // 打包前先删除对应文件夹， 打包前运行
-    new CleanWebpackPlugin(["dist"], {
-      root: path.resolve(__dirname, "../"),
-    }),
-    new AddAssetHtmlWebpackPlugin({
-      filepath: path.resolve(__dirname, "../test/vendors.test.js"),
-    }),
-    new webpack.DllReferencePlugin({
-      manifest: path.resolve(__dirname, "../test/vendors.manifest.json"),
-    }),
-    new AddAssetHtmlWebpackPlugin({
-      filepath: path.resolve(__dirname, "../test/react.test.js"),
-    }),
-    new webpack.DllReferencePlugin({
-      manifest: path.resolve(__dirname, "../test/react.manifest.json"),
-    }),
-    // 配置 $ 为 jquery 完成 import $ from "jquery"
-    // new webpack.ProvidePlugin({
-    //   $: "jquery",
-    //   _: "lodash",
-    //   _join: ["lodash", "join"],
-    // }),
-  ],
+  plugins,
+  // plugins: [
+  // // 打包后运行
+  // new HtmlWebpackPlugin({
+  //   template: "./public/index.html",
+  // }),
+  // // 打包前先删除对应文件夹， 打包前运行
+  // new CleanWebpackPlugin(["dist"], {
+  //   root: path.resolve(__dirname, "../"),
+  // }),
+  // new AddAssetHtmlWebpackPlugin({
+  //   filepath: path.resolve(__dirname, "../test/vendors.test.js"),
+  // }),
+  // new webpack.DllReferencePlugin({
+  //   manifest: path.resolve(__dirname, "../test/vendors.manifest.json"),
+  // }),
+  // new AddAssetHtmlWebpackPlugin({
+  //   filepath: path.resolve(__dirname, "../test/react.test.js"),
+  // }),
+  // new webpack.DllReferencePlugin({
+  //   manifest: path.resolve(__dirname, "../test/react.manifest.json"),
+  // }),
+  // 配置 $ 为 jquery 完成 import $ from "jquery"
+  // new webpack.ProvidePlugin({
+  //   $: "jquery",
+  //   _: "lodash",
+  //   _join: ["lodash", "join"],
+  // }),
+  // ],
   optimization: {
     // 兼容老版本, 如果代码没有变化,而两次打包后的文件hash值变了，则需要添加下面代码
     // manifest 因为main.js 和 vendors.js两个文件之间会有关联，所有导致两次打包的文件hash值不同
