@@ -20,6 +20,13 @@ const DevConfig = {
     //   context: ['/auth', '/api'],
     //   target: 'http://localhost:3000',
     // }],
+    // historyApiFallback: true,
+    historyApiFallback: {
+      rewrites: [{
+        from: '/\*/',
+        to: '/index.html',
+      }]
+    },
     proxy: { // 代理
       // '/react/api': 'http://www.dell-lee.com',
       // 代理根目录

@@ -56,6 +56,8 @@
   ```http
   https://v4.webpack.js.org/configuration/dev-server/
   https://github.com/chimurai/http-proxy-middleware#options
+  解决单页面路由问题
+  https://github.com/bripkens/connect-history-api-fallback
   ```
 
 - MiniCssExtractPlugin 不好之处 支持 HMR， 开发环境不合适安装, CSS 代码分割
