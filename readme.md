@@ -65,8 +65,10 @@
 - MiniCssExtractPlugin 不好之处 支持 HMR， 开发环境不合适安装, CSS 代码分割
 - optimize-css-assets-webpack-plugin CSS 代码合并
 - workbox-webpack-plugin 使用 serviceWorker 做缓存，页面服务挂了，当前页面没影响
-- add-asset-html-webpack-plugin 向打包后的文件另外添加一个静态资源
 
+- add-asset-html-webpack-plugin 向打包后的文件另外添加一个静态资源
+- webpack.DllPlugin
+- webpack.DllReferencePlugin
 将一些第三方模块的单独打包出来，生成一个静态文件, 然后通过output中的library属性将这个文件全局暴露出来, 借助webpack.DllPlugin插件将这个文件进行分析, 生成一个映射文件, webpack.DllReferencePlugin配置好这个映射文件, 在打包的过程中, 会先分析映射文件, 如果在静态文件中已经有打包好的模块, 就不会再次进行打包, 会直接引用静态文件中的内容。从而提升打包速度。
 
 ```js
@@ -295,6 +297,7 @@ if ("serviceWorker" in navigator) {
   - 在尽可能少的模块上应用loader, 减少使用loader
   - plugin 尽可能精简并确保可靠 官方推荐的
   - resolve 参数合理配置
+  - 使用 DllPlugin 提高打包速度
   - thread-loader, parallel-webpack, happypack 多进程打包
   - 合理使用sourceMap
   - stats分析打包结果
