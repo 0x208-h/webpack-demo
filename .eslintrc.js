@@ -17,10 +17,12 @@ module.exports = {
     quotes: 0,
     "react/jsx-filename-extension": 0,
     "no-use-before-define": 'off',
-    'import/extensions': ['2', 'ignorePackages', {
-      js: 'never',
-      mjs: 'never',
-      jsx: 'never',
-    }],
+    // eslint不能匹配 .tsx后缀的文件
+    // 'import/extensions': ['2', 'ignorePackages', {
+    //   js: 'never',
+    //   ts: 'never',
+    //   jsx: 'never',
+    //   tsx: 'never',
+    // }],
   },
 };

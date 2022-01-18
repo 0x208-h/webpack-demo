@@ -1,6 +1,8 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+const AddAssetHtmlWebpackPlugin = require("add-asset-html-webpack-plugin");
+const webpack = require('webpack');
 // const webpack = require("webpack");
 const merge = require("webpack-merge");
 const DevConfig = require("./webpack.dev");
@@ -15,8 +17,8 @@ const CommonConfig = {
     extensions: ['.js', '.jsx', '.tsx', '.ts'], // 后缀
     mainFiles: ['index'], // 默认名字
     alias: {
-      "@": path.resolve(__dirname, '../src') // 别名
-    }
+      "@": path.resolve(__dirname, '../src'), // 别名
+    },
   },
   module: {
     rules: [
@@ -93,6 +95,12 @@ const CommonConfig = {
     // 打包前先删除对应文件夹， 打包前运行
     new CleanWebpackPlugin(["dist"], {
       root: path.resolve(__dirname, "../"),
+    }),
+    new AddAssetHtmlWebpackPlugin({
+      filepath: path.resolve(__dirname, "../test/vendors.test.js"),
+    }),
+    new webpack.DllReferencePlugin({
+      manifest: path.resolve(__dirname, "../test/vendors.manifest.json"),
     }),
     // 配置 $ 为 jquery 完成 import $ from "jquery"
     // new webpack.ProvidePlugin({

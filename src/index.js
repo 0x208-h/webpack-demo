@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 import ReactDom from "react-dom";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import axios from "axios";
-import List from "@/components/list";
-import Home from "./components/home";
+import _ from 'lodash';
 
 function App() {
   // axios.defaults.baseURL = "http://www.dell-lee.com"
@@ -14,15 +12,8 @@ function App() {
       .then((res) => console.log(res.data.data));
   }, []);
 
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/list" element={<List />} />
-        <Route path="/abc.html" element={<Home />} />
-      </Routes>
-    </BrowserRouter>
-  );
+  return (<div>{_.join(['this', 'a', 'header'], ' ')}</div>);
+  // return <div>2222</div>;
 }
 
 ReactDom.render(<App />, document.getElementById("root"));
