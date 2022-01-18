@@ -15,15 +15,23 @@ const DevConfig = {
   devServer: {
     contentBase: "./dist", // 打包后的根目录
     open: true, // 启动后是否打开浏览器
+    // 代理多个
+    // proxy: [{
+    //   context: ['/auth', '/api'],
+    //   target: 'http://localhost:3000',
+    // }],
     proxy: { // 代理
-      '/react/api': 'http://www.dell-lee.com'
-      // '/react/api': {
-				// target: 'https://www.dell-lee.com',
+      // '/react/api': 'http://www.dell-lee.com',
+      // 代理根目录
+      // index: '',
+      '/react/api': {
+				target: 'http://www.dell-lee.com',
 				// secure: false, // 代理https请求
-				// pathRewrite: {
-				// 	'header.json': 'demo.json'
-				// },
-      // }
+        changeOrigin: true, // 记得一定要设置
+				pathRewrite: {
+					'header.json': 'demo.json' //路径重写
+				},
+      }
     },
     // port: 3000 //端口号
     hot: true, // 开启HMR hot module replacement
