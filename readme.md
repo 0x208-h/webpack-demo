@@ -25,6 +25,8 @@
 - imports-loader 更改 this 指向
 - ts-loader 打包 TS, 根目录需要 tsconfig.json
 - thread-loader 多进程打包
+- eslint-loader
+  - 可以使用 yarn run eslint 目录名来检测代码规范
 
 ```js
  {

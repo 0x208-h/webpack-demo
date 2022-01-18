@@ -1,4 +1,3 @@
-
 const Webpack = require("webpack");
 // const merge = require("webpack-merge");
 // const CommonConfig = require("./webpack.common")
@@ -9,10 +8,11 @@ const DevConfig = {
   // inline-source-map， 会将.map文件打包后放在main.js中
   // cheap-inline-source-map 只知道哪一行出错，不知道哪一列出错， 只打包业务代码
   // eval
-  //development 最佳 cheap-module-eval-source-map
+  // development 最佳 cheap-module-eval-source-map
   // production: cheap-module-source-map
   devtool: "cheap-module-eval-source-map",
   devServer: {
+    overlay: true, // eslint界面提示错误
     contentBase: "./dist", // 打包后的根目录
     open: true, // 启动后是否打开浏览器
     // 代理多个
@@ -20,25 +20,25 @@ const DevConfig = {
     //   context: ['/auth', '/api'],
     //   target: 'http://localhost:3000',
     // }],
-    // historyApiFallback: true,
-    historyApiFallback: {
-      rewrites: [{
-        from: '/\*/',
-        to: '/index.html',
-      }]
-    },
+    historyApiFallback: true,
+    // historyApiFallback: {
+    //   rewrites: [{
+    //     from: '/\*/',
+    //     to: '/index.html',
+    //   }],
+    // },
     proxy: { // 代理
       // '/react/api': 'http://www.dell-lee.com',
       // 代理根目录
       // index: '',
       '/react/api': {
-				target: 'http://www.dell-lee.com',
-				// secure: false, // 代理https请求
+        target: 'http://www.dell-lee.com',
+        // secure: false, // 代理https请求
         changeOrigin: true, // 记得一定要设置
-				pathRewrite: {
-					'header.json': 'demo.json' //路径重写
-				},
-      }
+        pathRewrite: {
+          'header.json': 'demo.json', // 路径重写
+        },
+      },
     },
     // port: 3000 //端口号
     hot: true, // 开启HMR hot module replacement
@@ -66,7 +66,7 @@ const DevConfig = {
           "postcss-loader",
         ],
       },
-    ]
+    ],
   },
   plugins: [
     new Webpack.HotModuleReplacementPlugin(),
@@ -78,7 +78,7 @@ const DevConfig = {
   output: {
     filename: "[name].js", // name 表示entry中的key, 打包多个文件可用
     chunkFilename: '[name].chunk.js',
-  }
+  },
 };
 
-module.exports =  DevConfig
+module.exports = DevConfig;

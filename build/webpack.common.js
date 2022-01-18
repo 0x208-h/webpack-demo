@@ -2,9 +2,9 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 // const webpack = require("webpack");
-const merge = require("webpack-merge")
-const DevConfig = require("./webpack.dev")
-const ProdConfig = require("./webpack.prod")
+const merge = require("webpack-merge");
+const DevConfig = require("./webpack.dev");
+const ProdConfig = require("./webpack.prod");
 
 const CommonConfig = {
   entry: {
@@ -39,7 +39,15 @@ const CommonConfig = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "babel-loader",
+        // use: ['babel-loader', 'eslint-loader'],
+        use: ['babel-loader', {
+          loader: 'eslint-loader',
+          options: {
+            fix: true, // 修复eslint
+          },
+          force: true, // 强制先执行
+        }],
+        // loader: "babel-loader",
         // use: ["babel-loader", "imports-loader?this=>window"],
         // options: {
         //   //  业务代码可用
@@ -145,9 +153,8 @@ const CommonConfig = {
 };
 
 module.exports = (env) => {
-  if(env && env.production) {
-    return merge(CommonConfig, ProdConfig)
-  } else {
-    return merge(CommonConfig, DevConfig)
+  if (env && env.production) {
+    return merge(CommonConfig, ProdConfig);
   }
-}
+  return merge(CommonConfig, DevConfig);
+};
