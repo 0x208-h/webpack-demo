@@ -45,7 +45,7 @@ const CommonConfig = {
           options: {
             fix: true, // 修复eslint
           },
-          force: true, // 强制先执行
+          // force: "pre", // 强制先执行 配置问题会报错
         }],
         // loader: "babel-loader",
         // use: ["babel-loader", "imports-loader?this=>window"],
