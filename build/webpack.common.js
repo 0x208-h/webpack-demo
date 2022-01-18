@@ -8,6 +8,10 @@ const merge = require("webpack-merge");
 const DevConfig = require("./webpack.dev");
 const ProdConfig = require("./webpack.prod");
 
+// const plugins = [
+
+// ]
+
 const CommonConfig = {
   entry: {
     main: "./src/index.js", // key为打包后的名字
@@ -101,6 +105,12 @@ const CommonConfig = {
     }),
     new webpack.DllReferencePlugin({
       manifest: path.resolve(__dirname, "../test/vendors.manifest.json"),
+    }),
+    new AddAssetHtmlWebpackPlugin({
+      filepath: path.resolve(__dirname, "../test/react.test.js"),
+    }),
+    new webpack.DllReferencePlugin({
+      manifest: path.resolve(__dirname, "../test/react.manifest.json"),
     }),
     // 配置 $ 为 jquery 完成 import $ from "jquery"
     // new webpack.ProvidePlugin({
