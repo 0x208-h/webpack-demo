@@ -24,6 +24,7 @@
 
 - imports-loader 更改 this 指向
 - ts-loader 打包 TS, 根目录需要 tsconfig.json
+- thread-loader 多进程打包
 
 ```js
  {
@@ -239,3 +240,10 @@ if ("serviceWorker" in navigator) {
   ```
 
   http-server 本地起一个服务
+
+  webpack提高打包速度
+  - thread-loader, parallel-webpack, happypack 多进程打包
+  - 合理使用sourceMap
+  - stats分析打包结果
+  - 开发环境内存编译
+  - 开发环境剔除不必要的插件
