@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import ReactDom from "react-dom";
 import axios from "axios";
-import _ from 'lodash';
 
 function App() {
   // axios.defaults.baseURL = "http://www.dell-lee.com"
@@ -11,9 +10,7 @@ function App() {
       .get("/react/api/header.json")
       .then((res) => console.log(res.data.data));
   }, []);
-
-  return (<div>{_.join(['this', 'a', 'header'], ' ')}</div>);
-  // return <div>2222</div>;
+  return <div>Home</div>;
 }
 
 ReactDom.render(<App />, document.getElementById("root"));

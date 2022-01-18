@@ -9,35 +9,56 @@ const merge = require("webpack-merge");
 const DevConfig = require("./webpack.dev");
 const ProdConfig = require("./webpack.prod");
 
-const plugins = [
-  // 打包后运行
-  new HtmlWebpackPlugin({
-    template: "./public/index.html",
-  }),
-  // 打包前先删除对应文件夹， 打包前运行
-  new CleanWebpackPlugin(["dist"], {
+const makePlugins = (config) => {
+  const plugins = [new CleanWebpackPlugin(["dist"], {
     root: path.resolve(__dirname, "../"),
-  }),
-];
+  })];
 
-const files = fs.readdirSync(path.resolve(__dirname, "../test"));
-files.forEach((file) => {
-  if (/.*\.test.js$/.test(file)) {
-    plugins.push(new AddAssetHtmlWebpackPlugin({
-      filepath: path.resolve(__dirname, "../test", file),
+  Object.keys(config.entry).forEach((item) => {
+    plugins.push(new HtmlWebpackPlugin({
+      template: "./public/index.html",
+      filename: `${item}.html`,
+      chunks: ['runtime', 'vendors', item],
     }));
-  }
-  if (/.*\.test.json$/.test(file)) {
-    plugins.push(new webpack.DllReferencePlugin({
-      manifest: path.resolve(__dirname, "../test", file),
-    }));
-  }
-});
+  });
+  const files = fs.readdirSync(path.resolve(__dirname, "../test"));
+  files.forEach((file) => {
+    if (/.*\.test.js$/.test(file)) {
+      plugins.push(new AddAssetHtmlWebpackPlugin({
+        filepath: path.resolve(__dirname, "../test", file),
+      }));
+    }
+    if (/.*\.test.json$/.test(file)) {
+      plugins.push(new webpack.DllReferencePlugin({
+        manifest: path.resolve(__dirname, "../test", file),
+      }));
+    }
+  });
+  return plugins;
+};
+// const plugins = [
+//   // 打包后运行
+//   new HtmlWebpackPlugin({
+//     template: "./public/index.html",
+//     filename: 'index.html',
+//     chunks: ['runtime', 'vendors', 'main'],
+//   }),
+//   new HtmlWebpackPlugin({
+//     template: "./public/index.html",
+//     filename: 'list.html',
+//     chunks: ['runtime', 'vendors', 'list'],
+//   }),
+//   // 打包前先删除对应文件夹， 打包前运行
+//   new CleanWebpackPlugin(["dist"], {
+//     root: path.resolve(__dirname, "../"),
+//   }),
+// ];
 
 const CommonConfig = {
   entry: {
-    main: "./src/index.js", // key为打包后的名字
+    index: "./src/index.js", // key为打包后的名字
     // sub: "./src/index.js",
+    list: './src/list.js',
   },
   resolve: {
     extensions: ['.js', '.jsx', '.tsx', '.ts'], // 后缀
@@ -113,7 +134,7 @@ const CommonConfig = {
       },
     ],
   },
-  plugins,
+  // plugins,
   // plugins: [
   // // 打包后运行
   // new HtmlWebpackPlugin({
@@ -200,6 +221,8 @@ const CommonConfig = {
     path: path.resolve(__dirname, "../dist"),
   },
 };
+
+CommonConfig.plugins = makePlugins(CommonConfig);
 
 module.exports = (env) => {
   if (env && env.production) {
