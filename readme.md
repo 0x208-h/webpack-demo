@@ -69,7 +69,7 @@
 - add-asset-html-webpack-plugin 向打包后的文件另外添加一个静态资源
 - webpack.DllPlugin
 - webpack.DllReferencePlugin
-将一些第三方模块的单独打包出来，生成一个静态文件, 然后通过output中的library属性将这个文件全局暴露出来, 借助webpack.DllPlugin插件将这个文件进行分析, 生成一个映射文件, webpack.DllReferencePlugin配置好这个映射文件, 在打包的过程中, 会先分析映射文件, 如果在静态文件中已经有打包好的模块, 就不会再次进行打包, 会直接引用静态文件中的内容。从而提升打包速度。
+  将一些第三方模块的单独打包出来，生成一个静态文件, 然后通过 output 中的 library 属性将这个文件全局暴露出来, 借助 webpack.DllPlugin 插件将这个文件进行分析, 生成一个映射文件, webpack.DllReferencePlugin 配置好这个映射文件, 在打包的过程中, 会先分析映射文件, 如果在静态文件中已经有打包好的模块, 就不会再次进行打包, 会直接引用静态文件中的内容。从而提升打包速度。
 
 ```js
 webpack.test.js
@@ -292,14 +292,24 @@ if ("serviceWorker" in navigator) {
 
   http-server 本地起一个服务
 
-  webpack提高打包速度
+  webpack 提高打包速度
+
   - 跟上技术的迭代 node npm yarn
-  - 在尽可能少的模块上应用loader, 减少使用loader
+  - 在尽可能少的模块上应用 loader, 减少使用 loader
   - plugin 尽可能精简并确保可靠 官方推荐的
   - resolve 参数合理配置
   - 使用 DllPlugin 提高打包速度
   - thread-loader, parallel-webpack, happypack 多进程打包
-  - 合理使用sourceMap
-  - stats分析打包结果
+  - 合理使用 sourceMap
+  - stats 分析打包结果
   - 开发环境内存编译
   - 开发环境剔除不必要的插件
+
+```js
+ resolveLoader: {
+    modules: ['node_modules', './loaders']
+  },
+```
+
+因为 如果使用 loader, 会先到 node_moudles 里面寻找 loader 文件, 可通过 resolveLoader 的配置项来配置 loader 存放位置, 见上
+loader
