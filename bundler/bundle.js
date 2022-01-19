@@ -37,5 +37,29 @@ const moduleAnalyser = (filename) => {
   };
 };
 
-const moduleInfo = moduleAnalyser("./src/index.js");
-console.log(moduleInfo)
+const makeDependenciesGraph = (entry) => {
+  const entryMoudle = moduleAnalyser(entry);
+  const graphArr = [entryMoudle];
+  for (let i = 0; i < graphArr.length; i++) {
+    const item = graphArr[i];
+    const { dependencies } = item;
+    if(dependencies) {
+      for(let j in dependencies) {
+        const module = moduleAnalyser(dependencies[j]);
+        graphArr.push(module)
+      }
+    }
+  }
+  const graph = {}
+  graphArr.forEach(item => {
+    graph[item.filename] = {
+      dependencies: item.dependencies,
+      code: item.code
+    }
+  })
+  // console.log(graphArr, graph, 'graph')
+  return graph
+};
+
+const graphInfo = makeDependenciesGraph("./src/index.js");
+console.log(graphInfo)
