@@ -10,6 +10,11 @@
 - postcss-loader 兼容 css3
 - babel-loader es6 --> es5
 
+asset/resource 将资源分割为单独的文件，并导出 url，类似之前的 file-loader 的功能.
+asset/inline 将资源导出为 dataUrl 的形式，类似之前的 url-loader 的小于 limit 参数时功能.
+asset/source 将资源导出为源码（source code）. 类似的 raw-loader 功能.
+asset 会根据文件大小来选择使用哪种类型，当文件小于 8 KB（默认） 的时候会使用 asset/inline，否则会使用 asset/resource
+
   - 其他依赖
   - @babel/core
   - ---------------- 这种打包回污染全局环境
